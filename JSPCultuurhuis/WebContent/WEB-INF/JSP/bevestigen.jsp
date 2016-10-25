@@ -17,25 +17,25 @@
 	</nav>
 	<div id="wrapper">
 		<h1 id="pageTitle">Het Cultuurhuis:bevestigen</h1>
-		<form name="form" id="my_form" method="post"></form>
+		<form name="form" id="form" method="post"></form>
 		<h2>Stap 1: Wie ben je ?</h2>
 		<table class="tables">
 			<tr>
 				<th class="tableHeader">Gebruikersnaam</th>
-				<td class="tableContent"><input id="username" value=''
+				<td class="tableContent"><input name="username"
 					form="form"></td>
 			</tr>
 			<tr>
 				<th class="tableHeader">Password</th>
-				<td class="tableContent"><input id="password" type="password"
-					value='' form="form"></td>
+				<td class="tableContent"><input name="password" type="password"
+					 form="form"></td>
 			</tr>
 		</table>
 
-		<button id="loginButton" type='submit' name='Login' 
+		<button id="loginButton" type='submit' value ="submit" name='login' 
 			form="form">Login</button>
 		<form action="register.htm" method="get">
-			<button id="registerButton" type='submit' ">Register</button>
+			<button id="registerButton" type='submit'>Register</button>
 		</form>
 
 		<h2>Stap 2: Bevestigen</h2>

@@ -24,8 +24,10 @@ public class BevestigenServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		response.sendRedirect(String.format(REDIRECT_URL, request.getContextPath()));
-
+		System.out.println("TEST");
+		System.out.println(request.getParameter("login"));
+		System.out.println(request.getParameter("username"));
+		System.out.println(request.getParameter("lastname"));
+		//response.sendRedirect(String.format(REDIRECT_URL, request.getContextPath()));
 	}	
 }
