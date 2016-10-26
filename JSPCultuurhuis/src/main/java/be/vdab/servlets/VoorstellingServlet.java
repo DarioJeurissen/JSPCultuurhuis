@@ -24,7 +24,7 @@ import be.vdab.repositories.VoorstellingRepository;
 public class VoorstellingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/voorstelling.jsp";
-	private final VoorstellingRepository voorstellingRepository = new VoorstellingRepository();
+	private final transient VoorstellingRepository voorstellingRepository = new VoorstellingRepository();
 	private static final String REDIRECT_URL = "%s/mandje.htm";
 
 	@Resource(name = VoorstellingRepository.JNDI_NAME)
@@ -41,7 +41,7 @@ public class VoorstellingServlet extends HttpServlet {
 			if(request.getSession().getAttribute("mandje") != null){
 				Mandje m = (Mandje) request.getSession().getAttribute("mandje");
 				if (m.getMandje().containsKey(id)) {
-					request.setAttribute("plaatsen", m.getPlaatsenReserveerd(id));
+					request.setAttribute("plaatsen", m.getPlaatsenGereserveerd(id));
 				}
 			}
 
@@ -57,17 +57,14 @@ public class VoorstellingServlet extends HttpServlet {
 			long id = Long.parseLong(request.getParameter("id"));
 			Voorstelling voorstelling = voorstellingRepository.findVoorstellingByID(id);
 			if (request.getParameter("plaatsen") != null) {
-				int plaatsen = Integer.parseInt(request.getParameter("plaatsen"));
-				if (plaatsen < voorstelling.getVrijeplaatsen() && plaatsen > 0) {
+				long plaatsen = Long.parseLong(request.getParameter("plaatsen"));
+				if (plaatsen <= voorstelling.getVrijeplaatsen() && plaatsen > 0) {
 					if (session.getAttribute("mandje") == null) {
 						session.setAttribute("mandje", new Mandje());
-						System.out.println("nieuw mandje aangemaakt");
 					}
 					Mandje mandje = (Mandje) session.getAttribute("mandje");
 					mandje.add(id, plaatsen);
 					session.setAttribute("mandje", mandje);
-					System.out.println("Mandje geSet");
-					System.out.println("responseEncode");
 					response.sendRedirect(response.encodeRedirectURL(
 							String.format(REDIRECT_URL, request.getContextPath())));
 				} 
@@ -82,8 +79,6 @@ public class VoorstellingServlet extends HttpServlet {
 				request.setAttribute("voorstelling", voorstelling);
 				request.getRequestDispatcher(VIEW).forward(request, response);
 			}
-		} else {
-			System.out.println("id/plaatsen is null");
 		}
 
 	}

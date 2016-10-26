@@ -20,7 +20,7 @@ public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/register.jsp";
 	private final String REDIRECT_URL = "%s/bevestigen.htm";
-	private final static KlantRepository klantRepository = new KlantRepository();
+	private final transient KlantRepository klantRepository = new KlantRepository();
 
 	@Resource(name = KlantRepository.JNDI_NAME)
 	public void setDataSource(DataSource dataSource) {
@@ -68,6 +68,9 @@ public class RegisterServlet extends HttpServlet {
 		}
 		if(username.isEmpty()){
 			errors.add("Gebruikersnaam niet ingevuld!");
+		}
+		if(klantRepository.findKlantByUser(username) != null){
+			errors.add("Gebruikersnaam bestaat al!");
 		}
 		if(pw1.isEmpty()){
 			errors.add("Passwoord niet ingevuld!");

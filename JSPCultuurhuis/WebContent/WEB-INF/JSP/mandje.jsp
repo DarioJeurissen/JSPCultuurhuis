@@ -17,7 +17,7 @@
 	</nav>
 	<div id="wrapper">
 		<h1 id="pageTitle">Het Cultuurhuis:reservatiemandje</h1>
-		<form name="form" id="my_form"></form>
+		<form name="form" id="my_form" method="post"></form>
 		<table class="tables">
 			<tr>
 				<th class="tableHeader">Datum</th>
@@ -37,7 +37,7 @@
 					<td class="tableContent">${voorstelling.titel}</td>
 					<td class="tableContent">${voorstelling.uitvoerders}</td>
 					<td class="tableContent">€${voorstelling.prijs}</td>
-					<td class="tableContent">${mandje.getPlaatsenReserveerd(voorstelling.id)}</td>
+					<td class="tableContent">${mandje.getPlaatsenGereserveerd(voorstelling.id)}</td>
 					<td class="tableContent"><input type="checkbox"
 						name="voorstellingen" value="${voorstelling.id}" form="my_form"></td>
 				</tr>

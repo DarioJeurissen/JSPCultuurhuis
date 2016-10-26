@@ -22,7 +22,6 @@ public class MandjeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/mandje.jsp";
 	private final VoorstellingRepository voorstellingRepository = new VoorstellingRepository();
-	private final String REDIRECT_URL = "%s/mandje.htm";
 
 	@Resource(name = VoorstellingRepository.JNDI_NAME)
 	public void setDataSource(DataSource dataSource) {
@@ -41,16 +40,23 @@ public class MandjeServlet extends HttpServlet {
 			}
 			request.setAttribute("voorstellingen", voorstellingen);
 		}
-		
 		request.getRequestDispatcher(VIEW).forward(request, response);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-
-		response.sendRedirect(String.format(REDIRECT_URL, request.getContextPath()));
-
+		if (request.getParameter("submit") != null && request.getParameter("submit").equals("verwijderen") && request.getParameter("voorstellingen") != null) {
+			Mandje m = (Mandje) request.getSession().getAttribute("mandje");
+			String check[] = request.getParameterValues("voorstellingen");
+			if(request.getParameterValues("voorstellingen") != null){
+				for(String s : check){
+					System.out.println(s);
+					m.remove(Long.parseLong(s));
+				}
+				request.getSession().setAttribute("mandje", m);
+			}
+		}
+		request.getRequestDispatcher(VIEW).forward(request, response);
 	}	
 }

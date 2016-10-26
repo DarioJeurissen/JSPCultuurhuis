@@ -15,7 +15,7 @@ import be.vdab.entities.Klant;
 
 public class KlantRepository extends AbstractRepository {
 	private final static String FIND_KLANTEN_BY_USER = "select * from klanten WHERE gebruikersnaam= ?";
-    private static final String INSERT_KLANT_SQL = "INSERT INTO klanten(id, voornaam, familienaam, straat, huisnr, postcode, gemeente, gebruikersnaam, paswoord) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_KLANT_SQL = "INSERT INTO klanten(voornaam, familienaam, straat, huisnr, postcode, gemeente, gebruikersnaam, paswoord) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 	public Klant findKlantByUser(String id) {
 		try (Connection connection = dataSource.getConnection();
@@ -37,15 +37,14 @@ public class KlantRepository extends AbstractRepository {
                 PreparedStatement statementInsert = connection.prepareStatement(INSERT_KLANT_SQL)) { 
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             connection.setAutoCommit(false);
-	            statementInsert.setLong(1, k.getId());
-	            statementInsert.setString(2, k.getVoornaam());
-	            statementInsert.setString(3, k.getFamilienaam());
-	            statementInsert.setString(4, k.getStraat());
-	            statementInsert.setString(5, k.getNummer());
-	            statementInsert.setString(6, k.getPostcode());
-	            statementInsert.setString(7, k.getGemeente());
-	            statementInsert.setString(8, k.getGebruikersnaam());
-	            statementInsert.setString(9, k.getPassword());
+	            statementInsert.setString(1, k.getVoornaam());
+	            statementInsert.setString(2, k.getFamilienaam());
+	            statementInsert.setString(3, k.getStraat());
+	            statementInsert.setString(4, k.getNummer());
+	            statementInsert.setString(5, k.getPostcode());
+	            statementInsert.setString(6, k.getGemeente());
+	            statementInsert.setString(7, k.getGebruikersnaam());
+	            statementInsert.setString(8, k.getPassword());
 	            
 	            statementInsert.executeUpdate();
             	connection.commit();
@@ -65,6 +64,6 @@ public class KlantRepository extends AbstractRepository {
 						resultSet.getString("postcode"),
 						resultSet.getString("gemeente"),
 						resultSet.getString("gebruikersnaam"),
-						resultSet.getString("passwoord"));
+						resultSet.getString("paswoord"));
 	}
 }

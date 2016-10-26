@@ -17,31 +17,58 @@
 	</nav>
 	<div id="wrapper">
 		<h1 id="pageTitle">Het Cultuurhuis:bevestigen</h1>
-		<form name="form" id="form" method="post"></form>
+		<form name="form" id="form" method="post" action="bevestigen.htm"></form>
 		<h2>Stap 1: Wie ben je ?</h2>
 		<table class="tables">
 			<tr>
 				<th class="tableHeader">Gebruikersnaam</th>
-				<td class="tableContent"><input name="username"
-					form="form"></td>
+				<td class="tableContent"><input name="username" form="form"></td>
 			</tr>
 			<tr>
 				<th class="tableHeader">Password</th>
 				<td class="tableContent"><input name="password" type="password"
-					 form="form"></td>
+					form="form"></td>
 			</tr>
 		</table>
-
-		<button id="loginButton" type='submit' value ="submit" name='login' 
-			form="form">Login</button>
-		<form action="register.htm" method="get">
-			<button id="registerButton" type='submit'>Register</button>
-		</form>
+		<c:if test="${klant == null}">
+			<input id="loginButton" type='submit' value="Login" name='login'
+				form="form">
+			<form action="register.htm" method="get">
+				<button id="registerButton" type='submit'>Register</button>
+			</form>
+		</c:if>
+		<c:if test="${klant != null}">
+			<input id="loginButton" type='submit' value="Login" name='login'
+				form="form" disabled>
+			<form action="register.htm" method="get">
+				<button id="registerButton" type='submit' disabled>Register</button>
+			</form>
+		</c:if>
+		<c:if test="${klant != null}">
+			<table class="tables">
+				<tr>
+					<th>Gebruikersnaam:</th>
+					<th>Naam:</th>
+					<th>Adres:</th>
+				</tr>
+				<tr>
+					<td>${klant.gebruikersnaam}</td>
+					<td>${klant.voornaam} ${klant.familienaam}</td>
+					<td>${klant.straat} ${klant.nummer}, ${klant.postcode}
+						${klant.gemeente}</td>
+				</tr>
+			</table>
+		</c:if>
 
 		<h2>Stap 2: Bevestigen</h2>
-		<form>
-			<button type="submit" disabled>Bevestigen</button>
-		</form>
+		<form id="confirmF" name="confirmForm" action="bevestigen.htm" method="post"></form>
+			<input name="aKlant" value="${klant.gebruikersnaam}" hidden="true" form="confirmF"/>
+			<c:if test="${klant == null}">
+				<button type="submit" disabled form="confirmF">Bevestigen</button>
+			</c:if>
+			<c:if test="${klant != null}">
+				<input type="submit" name="confirm" value="Bevestigen" form="confirmF">
+			</c:if>
 	</div>
 </body>
 </html>

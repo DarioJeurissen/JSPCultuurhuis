@@ -22,40 +22,42 @@
 		</ul>
 	</nav>
 	<div id="wrapper">
-		<table class="tables">
-			<tr>
-				<th class="tableHeader">Voorstelling:<br></th>
-				<th class="tableContent">${voorstelling.titel}<br></th>
-			</tr>
-			<tr>
-				<td class="tableHeader">Uitvoerders:<br></td>
-				<td class="tableContent">${voorstelling.uitvoerders}</td>
-			</tr>
-			<tr>
-				<td class="tableHeader">Datum:<br></td>
-				<td class="tableContent">${voorstelling.datum}</td>
-			</tr>
-			<tr>
-				<td class="tableHeader">Prijs:</td>
-				<td class="tableContent">€${voorstelling.prijs}</td>
-			</tr>
-			<tr>
-				<td class="tableHeader">Vrije plaatsen:</td>
-				<td class="tableContent">${voorstelling.vrijeplaatsen}</td>
-			</tr>
-			<c:if test='${voorstelling.vrijeplaatsen > 0}'>
+		<c:if test="${not empty voorstelling}">
+			<table class="tables">
 				<tr>
-					<td class="tableHeader">Plaatsen:</td>
-					<td class="tableContent">${error}
-						<form method='post' action="voorstelling.htm">
-							<input name="plaatsen" value='${plaatsen}'></input> <input
-								name="id" value="${voorstelling.id}" hidden="true" />
-							<button type="submit" id="shoppingcart">Reserveren</button>
-						</form>
-					</td>
+					<th class="tableHeader">Voorstelling:<br></th>
+					<th class="tableContent">${voorstelling.titel}<br></th>
 				</tr>
-			</c:if>
-		</table>
+				<tr>
+					<td class="tableHeader">Uitvoerders:<br></td>
+					<td class="tableContent">${voorstelling.uitvoerders}</td>
+				</tr>
+				<tr>
+					<td class="tableHeader">Datum:<br></td>
+					<td class="tableContent">${voorstelling.datum}</td>
+				</tr>
+				<tr>
+					<td class="tableHeader">Prijs:</td>
+					<td class="tableContent">€${voorstelling.prijs}</td>
+				</tr>
+				<tr>
+					<td class="tableHeader">Vrije plaatsen:</td>
+					<td class="tableContent">${voorstelling.vrijeplaatsen}</td>
+				</tr>
+				<c:if test='${voorstelling.vrijeplaatsen > 0}'>
+					<tr>
+						<td class="tableHeader">Plaatsen:</td>
+						<td class="tableContent">${error}
+							<form method='post' action="voorstelling.htm">
+								<input name="plaatsen" value='${plaatsen}'></input> <input
+									name="id" value="${voorstelling.id}" hidden="true" />
+								<button type="submit" id="shoppingcart">Reserveren</button>
+							</form>
+						</td>
+					</tr>
+				</c:if>
+			</table>
+		</c:if>
 	</div>
 </body>
 </html>

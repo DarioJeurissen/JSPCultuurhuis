@@ -1,6 +1,5 @@
 package be.vdab.entities;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,19 +7,19 @@ import java.util.Map;
 
 
 public class Mandje {
-	private Map<Long, Integer> mandje;	
+	private Map<Long, Long> mandje;	
 	public Mandje(){
-		mandje = new HashMap<Long, Integer>();
+		mandje = new HashMap<Long, Long>();
 	}
-	public Map<Long, Integer> getMandje(){
+	public Map<Long, Long> getMandje(){
 		return mandje;
 	}
-	public void add(Long l, Integer p){
+	public void add(Long l, Long p){
 		mandje.put(l, p);
 	}
-	public void remove(Long l){
+	public void remove(long v){
 		try{
-			mandje.remove(l);
+			mandje.remove(v);
 		}
 		catch(Exception ex){
 			System.out.println(ex.getMessage());
@@ -31,13 +30,8 @@ public class Mandje {
 		mandje.forEach((k,v)->lijst.add(k));
 		return lijst;
 	}
-	
-	public BigDecimal getTotalPrice(){
-		BigDecimal total = new BigDecimal(0);
-		return total;
-	}
-	public int getPlaatsenReserveerd(long id) {
-		return mandje.get(id);
+	public long getPlaatsenGereserveerd(Long l) {
+		return mandje.get(l);
 	}
 	
 }

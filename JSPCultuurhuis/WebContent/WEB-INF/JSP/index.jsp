@@ -15,7 +15,7 @@
 	<nav>
 		<ul>
 			<li><a href='<c:url value="/"/>'>Voorstellingen</a></li>
-			<c:if test='${sessionScope.mandje != null}'>
+			<c:if test='${not empty sessionScope.mandje}'>
 			<li><a href='<c:url value="mandje.htm"/>'>Mandje</a></li>
 			<li><a href='<c:url value="bevestigen.htm"/>'>Bevestigen</a></li>
 			</c:if>
@@ -36,6 +36,7 @@
 	</nav>
 	<div id="wrapper">
 		<div id="genreDiv">
+			<c:if test="${not empty voorstellingen}">
 			<table class="tables">
 			<tr>
 				<th class="tableHeader">Datum</th>
@@ -61,6 +62,7 @@
 				</tr>
 			</c:forEach>
 		</table>
+		</c:if>
 		</div>
 	</div>
 </body>

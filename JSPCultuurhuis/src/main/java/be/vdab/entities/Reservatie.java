@@ -7,19 +7,27 @@ package be.vdab.entities;
  */
 
 public class Reservatie {
-	private long voorstellingid;
-	private int plaatsen;
+	private long voorstellingID;
+	private long plaatsen;
+	private boolean status;
 	
-	public Reservatie(long voorstellingid, int plaatsen){
-		this.voorstellingid = voorstellingid;
+	public Reservatie(Long l, long plaatsen){
+		this.voorstellingID = l;
 		this.plaatsen = plaatsen;
+		this.status = false;
 	}
 
-	public long getVoorstellingid() {
-		return voorstellingid;
+	public long getVoorstellingID() {
+		return voorstellingID;
 	}
 
-	public int getPlaatsen() {
+	public long getPlaatsen() {
 		return plaatsen;
+	}
+	public boolean getStatus(){
+		return status;
+	}
+	public void setProcessed(){
+		status = true;
 	}
 }
